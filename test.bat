@@ -1,6 +1,5 @@
 @echo off
 
-
 :: 2 bytes
 echo.>test.txt
 
@@ -11,7 +10,7 @@ for /L %%i in (1, 1, 9) do type test.txt>>test.txt
 for /L %%i in (1, 1, 10) do type test.txt>>test.txt
 
 :: 1Gb
-for /L %%i in (1, 1, 5) do type test.txt>>test.txt
+for /L %%i in (1, 1, 10) do type test.txt>>test.txt
 
 :: 4Gb
 ::for /L %%i in (1, 1, 4) do type test.txt>>file-4gb.txt
@@ -19,9 +18,9 @@ for /L %%i in (1, 1, 5) do type test.txt>>test.txt
 
 setlocal EnableDelayedExpansion
 
-:Compress
+::Compress
 set "FolderToCompress=..\test"
-"C:\Program Files (x86)\7-Zip\7z.exe" a -mx=9 -r -tzip "..\test\zip\archive.zip" "%FolderToCompress%\*"
+"C:\Program Files\7-Zip\7z.exe" a -mx=9 -r -tzip "..\test\zip\archive.zip" "%FolderToCompress%\*"
 ::rd /S /Q "%FolderToCompress%"
 ::md "%FolderToCompress%"
 endlocal
@@ -48,19 +47,5 @@ PING 1.1.1.1 -n 1 -w 1000 > NUL
 
 :end
 
-goto comment
-
-for /L %%i IN (1,1,1000) do call :dodelete %%i
-goto enddelete
-
-:dodelete
-set FN=00%1
-set FN=%FN:~-3%
-
-del test%FN%.txt
-
-:enddelete
-
-:comment
 ::del test.txt
 ::del file-4gb.txt
